@@ -8,7 +8,10 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\seifo\" -Directory -ErrorAction SilentlyContinue | Select-Object Name; Get-ChildItem \"C:\\\\Users\\\\seifo\\\\AppData\\\\Local\" -Directory -ErrorAction SilentlyContinue | Where-Object {$_.Name -match \"Python|conda|mamba\"} | Select-Object Name)",
       "PowerShell(winget --version 2>$null)",
       "PowerShell(conda --version 2>$null)",
-      "PowerShell($pip = \"C:\\\\Users\\\\seifo\\\\OneDrive\\\\Documents\\\\GitHub\\\\pytorch-handwriting-synthesis-toolkit\\\\venv\\\\Scripts\\\\pip.exe\"; & $pip install \"Pillow<10\" \"numpy<2\" \"matplotlib<4\" \"h5py<4\" \"svgwrite<2\" 2>&1 | Select-Object -Last 10)"
+      "PowerShell($pip = \"C:\\\\Users\\\\seifo\\\\OneDrive\\\\Documents\\\\GitHub\\\\pytorch-handwriting-synthesis-toolkit\\\\venv\\\\Scripts\\\\pip.exe\"; & $pip install \"Pillow<10\" \"numpy<2\" \"matplotlib<4\" \"h5py<4\" \"svgwrite<2\" 2>&1 | Select-Object -Last 10)",
+      "PowerShell($pip = \"C:\\\\Users\\\\seifo\\\\OneDrive\\\\Documents\\\\GitHub\\\\pytorch-handwriting-synthesis-toolkit\\\\venv\\\\Scripts\\\\pip.exe\"; & $pip list 2>$null | Select-String \"torch|numpy|Pillow|matplotlib|h5py|svgwrite|torchvision|requests\")",
+      "PowerShell($pip = \"C:\\\\Users\\\\seifo\\\\OneDrive\\\\Documents\\\\GitHub\\\\pytorch-handwriting-synthesis-toolkit\\\\venv\\\\Scripts\\\\pip.exe\"; & $pip install \"matplotlib<4\" \"h5py<4\" 2>&1 | Select-Object -Last 5)",
+      "PowerShell($pip = \"C:\\\\Users\\\\seifo\\\\OneDrive\\\\Documents\\\\GitHub\\\\pytorch-handwriting-synthesis-toolkit\\\\venv\\\\Scripts\\\\pip.exe\"; & $pip list 2>$null | Select-String \"matplotlib|h5py\")"
     ]
   }
 }

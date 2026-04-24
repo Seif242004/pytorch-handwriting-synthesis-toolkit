@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ink xmlns="http://www.w3.org/2003/InkML">
+  <context inkSourceRef="Tablet PC"/>
+  <captureDevice sampleRate="125">
+    <channelList>
+      <channelDef name="X"/>
+      <channelDef name="Y"/>
+    </channelList>
+  </captureDevice>
+  <trace duration="78" id="id001" type="penDown">588 60,587 62,587 63,587 66,586 70,584 73,579 78,577 79,576 80,574 80,573 79,571 79,570 78,570 77</trace>
+  <trace duration="15" id="id003" type="penDown">582 54,583 53,583 54,584 56</trace>
+  <trace duration="31" id="id005" type="penDown">566 63,565 66,565 67,564 70,561 74,557 78,554 80,550 79</trace>
+  <trace duration="31" id="id007" type="penDown">557 52,557 44,556 44,556 47,556 52,555 57,554 67,554 68</trace>
+  <trace duration="46" id="id009" type="penDown">543 65,541 64,542 62,544 63,545 66,544 71,542 75,538 80,531 83,530 82</trace>
+  <trace duration="281" id="id011" type="penDown">530 59,528 62,526 64,524 66,522 67,520 66,519 65,519 63,519 61,520 60,521 60,522 60,523 61,524 61,525 61,526 61,527 61,529 60,530 59</trace>
+  <trace duration="31" id="id013" type="penDown">532 49,528 50,526 51,525 51,523 52,522 53</trace>
+  <trace duration="16" id="id015" type="penDown">501 53,500 52,500 55,500 58,500 62,500 65,500 66</trace>
+  <trace duration="31" id="id017" type="penDown">494 52,493 50,493 49,493 48,493 51,493 53,493 55,493 59,492 64,491 67,488 69,480 66</trace>
+  <trace duration="717" id="id019" type="penDown">467 65,468 64,469 62,470 62,472 62,476 63,478 63,479 63,480 63,479 65,477 66,470 70,468 71,466 71,465 71,463 70,462 70,461 69,460 68,460 67,459 66,459 65,459 64,459 63,459 62,459 61,459 62,459 63,458 63,458 64,457 66,457 67,456 68,455 69,455 70,454 70,453 71,452 71,451 70,451 69,450 69,450 68,450 67,450 66,450 65,449 64,449 65,449 66,450 66</trace>
+  <trace duration="0" id="id021" type="penDown">469 77,469 79</trace>
+  <trace duration="265" id="id023" type="penDown">439 65,439 64,439 62,438 64,437 68,435 70,433 72,431 73,428 70,428 69,428 68,427 66,427 65,426 64,426 63,426 62,426 63,426 64,426 66,425 67,425 68,424 69,423 70,422 71,420 72,419 73,418 73,417 73,415 73,415 72</trace>
+  <trace duration="31" id="id025" type="penDown">437 82,437 83,433 82,431 84,429 84,429 83</trace>
+  <trace duration="31" id="id027" type="penDown">400 69,401 74,404 74,405 73,406 71,407 68,406 66,401 68,400 68</trace>
+  <trace duration="47" id="id029" type="penDown">412 54,407 55,403 55,400 57,398 58,399 59</trace>
+</ink>

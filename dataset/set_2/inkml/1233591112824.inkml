@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ink xmlns="http://www.w3.org/2003/InkML">
+  <context inkSourceRef="Tablet PC"/>
+  <captureDevice sampleRate="125">
+    <channelList>
+      <channelDef name="X"/>
+      <channelDef name="Y"/>
+    </channelList>
+  </captureDevice>
+  <trace duration="140" id="id001" type="penDown">743 101,742 94,742 95,743 96,744 99,749 109,750 111,750 113,750 115,749 116,748 118,747 119,744 120,742 120,739 120,736 120,733 120,730 120,728 119,726 119,725 118,724 117,723 116</trace>
+  <trace duration="187" id="id003" type="penDown">700 119,690 120,686 119,685 119,685 117,686 113,688 111,691 112,692 113,693 114,693 116,694 118,695 121,695 123,696 129,696 132,695 135,693 137,692 140,689 142,683 145,679 146,675 146,671 146,667 146,664 145,661 144,659 143,657 141</trace>
+  <trace duration="109" id="id005" type="penDown">647 117,648 119,649 125,649 127,648 132,647 135,645 137,639 140,636 142,632 143,628 143,624 144,621 144,617 144,615 143,613 142,611 141,610 140,609 138</trace>
+  <trace duration="0" id="id007" type="penDown">642 100,640 101</trace>
+</ink>

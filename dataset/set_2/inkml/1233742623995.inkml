@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ink xmlns="http://www.w3.org/2003/InkML">
+  <context inkSourceRef="Tablet PC"/>
+  <captureDevice sampleRate="125">
+    <channelList>
+      <channelDef name="X"/>
+      <channelDef name="Y"/>
+    </channelList>
+  </captureDevice>
+  <trace duration="921" id="id001" type="penDown">561 63,561 67,558 71,556 73,554 75,552 75,551 75,550 75,549 75,548 74,547 74,546 73,546 72,545 72,545 71,544 70,543 71,542 71,541 72,540 73,538 74,536 74,535 75,533 76,532 76,530 76,529 76,528 76,527 75,527 74,527 73,527 72,527 73,526 73,525 74,524 74,523 75,521 76,520 77,518 77,517 78,515 78,514 78,513 78,512 78,511 77,511 76,511 75,510 74,510 72,510 70,510 68,510 65,509 62,509 59,509 56,509 53,509 51,509 49,509 48,509 47,509 48</trace>
+  <trace duration="93" id="id003" type="penDown">567 53,567 54,566 54,565 54,564 54,563 54,562 54,561 54,560 54,559 54,556 54,555 54,554 55,553 56</trace>
+  <trace duration="15" id="id005" type="penDown">536 63,536 64</trace>
+  <trace duration="16" id="id007" type="penDown">517 91,517 91</trace>
+  <trace duration="62" id="id009" type="penDown">498 74,498 82,495 91,493 93,483 101,481 102,479 102,476 102,475 101,473 100,473 98</trace>
+  <trace duration="0" id="id011" type="penDown">519 87,519 89</trace>
+</ink>

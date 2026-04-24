@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ink xmlns="http://www.w3.org/2003/InkML">
+  <context inkSourceRef="Tablet PC"/>
+  <captureDevice sampleRate="125">
+    <channelList>
+      <channelDef name="X"/>
+      <channelDef name="Y"/>
+    </channelList>
+  </captureDevice>
+  <trace duration="202" id="id001" type="penDown">555 68,555 66,555 65,555 66,555 67,553 69,549 71,541 74,535 75,527 75,526 74,525 73,524 72,524 71,524 70,525 69,526 68,527 69,528 70,529 71,529 73,529 75,529 77,528 79,528 82,527 84,526 85,526 87,524 88,523 89,522 89,521 89</trace>
+  <trace duration="16" id="id003" type="penDown">553 56,550 56,548 56,546 56,544 56,542 57,543 58</trace>
+  <trace duration="359" id="id005" type="penDown">509 68,509 68,508 69,507 70,506 72,504 72,503 73,498 72,497 71,496 71,495 71,494 72,493 73,492 73,491 74,490 74,489 75,488 75,487 76,486 77,485 77,484 78,483 80,482 81,480 82,479 83,477 84,476 85,475 85,474 85,474 84,474 83,474 80,476 77,477 74,480 71,482 67,484 63</trace>
+  <trace duration="16" id="id007" type="penDown">504 59,504 61</trace>
+  <trace duration="359" id="id009" type="penDown">451 72,451 70,453 69,454 69,456 69,458 69,460 69,461 70,460 71,451 76,448 76,446 77,444 77,442 77,441 77,439 77,438 77,438 76,437 75,437 74,437 73,436 72,435 72,434 72,433 73,431 73,430 74,428 75,427 75,425 76,424 76,423 77,422 77,421 76,420 75,420 74,420 72,420 69,420 66,420 63,420 60,420 57,419 54,419 52,419 51,419 50,419 51,419 52</trace>
+  <trace duration="0" id="id011" type="penDown">432 86,431 88</trace>
+  <trace duration="0" id="id013" type="penDown">455 84,454 85</trace>
+  <trace duration="62" id="id015" type="penDown">443 57,442 59,439 61,436 60,434 59,430 61,429 62,428 63,427 63,426 64</trace>
+  <trace duration="0" id="id017" type="penDown">407 75,407 76</trace>
+  <trace duration="47" id="id019" type="penDown">403 77,404 75,405 83,403 88,395 93,394 93,394 92</trace>
+  <trace duration="78" id="id021" type="penDown">384 71,381 73,382 80,383 83,379 90,372 87,371 85,370 82,370 79,370 76,371 73,373 70,374 68</trace>
+  <trace duration="15" id="id023" type="penDown">376 100,374 101</trace>
+  <trace duration="16" id="id025" type="penDown">363 103,364 104</trace>
+</ink>
