@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip list *)",
+      "PowerShell(py --version)",
+      "PowerShell(py -m pip list 2>$null)",
+      "PowerShell(Get-Command conda -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\seifo\" -Directory -ErrorAction SilentlyContinue | Select-Object Name; Get-ChildItem \"C:\\\\Users\\\\seifo\\\\AppData\\\\Local\" -Directory -ErrorAction SilentlyContinue | Where-Object {$_.Name -match \"Python|conda|mamba\"} | Select-Object Name)",
+      "PowerShell(winget --version 2>$null)",
+      "PowerShell(conda --version 2>$null)",
+      "PowerShell($pip = \"C:\\\\Users\\\\seifo\\\\OneDrive\\\\Documents\\\\GitHub\\\\pytorch-handwriting-synthesis-toolkit\\\\venv\\\\Scripts\\\\pip.exe\"; & $pip install \"Pillow<10\" \"numpy<2\" \"matplotlib<4\" \"h5py<4\" \"svgwrite<2\" 2>&1 | Select-Object -Last 10)"
+    ]
+  }
+}
