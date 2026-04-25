@@ -82,6 +82,27 @@ class PeepholeLSTM(jit.ScriptModule):
         return hidden_seq, (h_t, c_t)
 
 
+class CuDNNLSTM(nn.Module):
+    """Drop-in replacement for PeepholeLSTM using PyTorch's cuDNN-optimised nn.LSTM.
+    Identical external interface: forward(x, (h, c)) -> (output, (h_n, c_n))
+    where h and c are (batch, hidden) tensors."""
+
+    def __init__(self, input_size, hidden_size):
+        super().__init__()
+        self.hidden_size = hidden_size
+        self.lstm = nn.LSTM(input_size, hidden_size, batch_first=True)
+
+    def get_initial_state(self, batch_size):
+        h0 = torch.zeros(batch_size, self.hidden_size)
+        c0 = torch.zeros_like(h0)
+        return h0, c0
+
+    def forward(self, x, states):
+        h, c = states
+        out, (h_n, c_n) = self.lstm(x, (h.unsqueeze(0), c.unsqueeze(0)))
+        return out, (h_n.squeeze(0), c_n.squeeze(0))
+
+
 class SoftWindow(jit.ScriptModule):
     def __init__(self, input_size, num_components):
         super().__init__()
@@ -124,7 +145,7 @@ class SoftWindow(jit.ScriptModule):
         return torch.bmm(phi, c)
 
 
-class SynthesisNetwork(jit.ScriptModule):
+class SynthesisNetwork(nn.Module):
     @classmethod
     def get_default_model(cls, alphabet_size, device, bias=None):
         return cls(3, 400, alphabet_size, device, bias=bias)
@@ -138,22 +159,20 @@ class SynthesisNetwork(jit.ScriptModule):
         self.device = device
         self.gaussian_components = gaussian_components
 
-        self.lstm1 = PeepholeLSTM(input_size + alphabet_size, hidden_size)
+        self.lstm1 = CuDNNLSTM(input_size + alphabet_size, hidden_size)
         self.window = SoftWindow(hidden_size, gaussian_components)
-        self.lstm2 = PeepholeLSTM(input_size + hidden_size + alphabet_size, hidden_size)
-        self.lstm3 = PeepholeLSTM(input_size + hidden_size + alphabet_size, hidden_size)
+        self.lstm2 = CuDNNLSTM(input_size + hidden_size + alphabet_size, hidden_size)
+        self.lstm3 = CuDNNLSTM(input_size + hidden_size + alphabet_size, hidden_size)
         self.mixture = MixtureDensityLayer(hidden_size * 3, output_mixtures, bias)
 
-    @jit.script_method
-    def forward(self, x: Tensor, c: Tensor):
+    def forward(self, x, c):
         batch_size, steps, _ = x.shape
         hidden1, hidden2, hidden3 = self.get_all_initial_states(batch_size)
         h1, w1 = self.compute_windows(x, c, hidden1)
         (pi, mu, sd, ro, eos), _, _ = self.compute_mixture(x, h1, w1, hidden2, hidden3)
         return (pi, mu, sd, ro), eos
 
-    @jit.script_method
-    def compute_windows(self, x: Tensor, c: Tensor, hidden1: Tuple[Tensor, Tensor]):
+    def compute_windows(self, x, c, hidden1):
         batch_size, steps, _ = x.shape
         w_t = self.get_initial_window(batch_size)
         k = torch.zeros(batch_size, self.gaussian_components, device=self.device, dtype=torch.float32)
@@ -175,9 +194,7 @@ class SynthesisNetwork(jit.ScriptModule):
         w = torch.cat(w1, dim=1)
         return h, w
 
-    @jit.script_method
-    def compute_mixture(self, x: Tensor, h1: Tensor, w1: Tensor,
-                        hidden2: Tuple[Tensor, Tensor], hidden3: Tuple[Tensor, Tensor]):
+    def compute_mixture(self, x, h1, w1, hidden2, hidden3):
         inputs = torch.cat([x, h1, w1], dim=-1)
         h2, hidden2 = self.lstm2(inputs, hidden2)
 

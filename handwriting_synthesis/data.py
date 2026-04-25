@@ -199,6 +199,10 @@ class H5Dataset(torch.utils.data.Dataset):
         return load_from_h5(self._fd, item)
 
     @property
+    def lengths(self):
+        return self._fd['lengths'][:]
+
+    @property
     def mu(self):
         return tuple(self._means)
 
@@ -339,7 +343,7 @@ def build_dataset(data_provider, save_path, max_length):
 class Tokenizer:
     @classmethod
     def from_file(cls, path):
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             s = f.read()
             return cls(s)
 
@@ -374,7 +378,7 @@ class Tokenizer:
         return ''.join([self._int_to_chr.get(token, '') for token in tokens])
 
     def save_charset(self, path):
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             f.write(self._charset)
 
 

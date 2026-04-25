@@ -1,4 +1,6 @@
 import math
+import random
+import numpy as np
 import torch.nn.functional
 from torch.utils.data.dataloader import DataLoader
 from .metrics import MovingAverage
@@ -12,6 +14,29 @@ logger.setLevel(logging.DEBUG)
 error_handler = logging.FileHandler(filename='epochs_stats.log')
 error_handler.setLevel(logging.INFO)
 logger.addHandler(error_handler)
+
+
+class BucketBatchSampler:
+    """Groups sequences of similar length into batches to minimise padding waste."""
+
+    def __init__(self, dataset, batch_size, shuffle=True):
+        self._shuffle = shuffle
+        lengths = dataset.lengths if hasattr(dataset, 'lengths') else np.ones(len(dataset))
+        sorted_indices = np.argsort(lengths, kind='stable')
+        self._batches = [
+            sorted_indices[i:i + batch_size].tolist()
+            for i in range(0, len(sorted_indices), batch_size)
+        ]
+
+    def __iter__(self):
+        batches = self._batches.copy()
+        if self._shuffle:
+            random.shuffle(batches)
+        for batch in batches:
+            yield batch
+
+    def __len__(self):
+        return len(self._batches)
 
 
 class TrainingLoop:
@@ -32,7 +57,8 @@ class TrainingLoop:
         self._val_metrics = val_metrics or []
 
     def start(self, initial_epoch, epochs):
-        loader = DataLoader(self._dataset, self._batch_size, collate_fn=collate)
+        sampler = BucketBatchSampler(self._dataset, self._batch_size)
+        loader = DataLoader(self._dataset, batch_sampler=sampler, collate_fn=collate)
         num_batches = math.ceil(len(self._dataset) / self._batch_size)
         val_batch_size = min(self._batch_size, len(self._val_set))
 

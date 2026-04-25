@@ -30,7 +30,8 @@ if __name__ == '__main__':
     save_dir = args.save_dir
 
     train_save_path = os.path.join(save_dir, 'train.h5')
-    val_save_path = os.path.join(save_dir, 'val.h5')
+    val_save_path   = os.path.join(save_dir, 'val.h5')
+    test_save_path  = os.path.join(save_dir, 'test.h5')
     os.makedirs(save_dir, exist_ok=True)
 
     provider_name = args.provider_name
@@ -56,6 +57,10 @@ if __name__ == '__main__':
 
     data.build_dataset(provider.get_validation_data(), val_save_path, max_len)
     print('Prepared validation data')
+
+    if hasattr(provider, 'get_test_data'):
+        data.build_dataset(provider.get_test_data(), test_save_path, max_len)
+        print('Prepared test data')
 
     charset_path = os.path.join(save_dir, 'charset.txt')
     data.build_and_save_charset(train_save_path, charset_path)
