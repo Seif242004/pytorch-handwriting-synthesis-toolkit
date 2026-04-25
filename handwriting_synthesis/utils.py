@@ -180,6 +180,7 @@ def create_strokes_svg(seq, save_path, lines=False, shrink_factor=1, suppress_er
     x, y, eos = split_into_components(seq)
     x = np.array(x) / shrink_factor
     y = np.array(y) / shrink_factor
+    x, y = _detrend_coordinates(x, y)
     x_with_offset = x - np.floor(x.min()) + horizontal_padding
     y_with_offset = y - np.floor(y.min()) + vertical_padding
 
@@ -206,11 +207,21 @@ def create_strokes_svg(seq, save_path, lines=False, shrink_factor=1, suppress_er
     return dwg
 
 
+def _detrend_coordinates(x, y):
+    """Remove the linear baseline slope so strokes render horizontally."""
+    if len(x) < 2:
+        return x, y
+    slope, intercept = np.polyfit(x, y, 1)
+    y_detrended = y - (slope * x + intercept) + np.mean(y)
+    return x, y_detrended
+
+
 def create_strokes_png(seq, lines=False, shrink_factor=1, suppress_errors=True,
                          horizontal_padding=100, vertical_padding=20, thickness=10):
     x, y, eos = split_into_components(seq)
     x = np.array(x) / shrink_factor
     y = np.array(y) / shrink_factor
+    x, y = _detrend_coordinates(x, y)
     x_with_offset = x - np.floor(x.min()) + horizontal_padding
     y_with_offset = y - np.floor(y.min()) + vertical_padding
 
@@ -270,8 +281,10 @@ def plot_attention_weights(phi, seq, save_path='img.png', text='', thickness=10)
 
     for i, single_x in enumerate(x):
         temperatures = phi[i]
-        colors = [str(t / temperatures.sum()) for t in temperatures]
-
+        total = temperatures.sum()
+        if total == 0:
+            continue
+        colors = [float(t / total) for t in temperatures]
         axes[0].scatter([single_x] * len(temperatures), y_ticks, c=colors, s=5, cmap='gray')
 
     c = (1, 0, 0, 1)
