@@ -110,6 +110,8 @@ class SoftWindow(jit.ScriptModule):
         self.alpha = nn.Linear(input_size, num_components)
         self.beta = nn.Linear(input_size, num_components)
         self.k = nn.Linear(input_size, num_components)
+        # exp(-3) ≈ 0.05 steps/tick — window crosses 5 chars in ~100 steps instead of ~5
+        nn.init.constant_(self.k.bias, -3.0)
 
     @jit.script_method
     def forward(self, x: Tensor, c: Tensor, prev_k: Tensor):
