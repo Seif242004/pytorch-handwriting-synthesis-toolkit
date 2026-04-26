@@ -152,6 +152,8 @@ def nll_loss(mixture, eos_hat, ground_true):
     density = gaussian_mixture.log_density(y1, y2)
 
     eps = 10 ** (-8)
-    binary_log_likelihood = (eos * torch.log(eos_hat + eps) + (1 - eos) * torch.log(1 - eos_hat + eps)).sum()
+    # Arabic has ~33:1 eos=0 to eos=1 ratio — upweight pen-lift events so the model learns to generate them
+    pos_weight = 33.0
+    binary_log_likelihood = (pos_weight * eos * torch.log(eos_hat + eps) + (1 - eos) * torch.log(1 - eos_hat + eps)).sum()
 
     return -(density + binary_log_likelihood) / batch_size

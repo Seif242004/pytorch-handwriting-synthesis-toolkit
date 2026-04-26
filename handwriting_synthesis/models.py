@@ -110,8 +110,10 @@ class SoftWindow(jit.ScriptModule):
         self.alpha = nn.Linear(input_size, num_components)
         self.beta = nn.Linear(input_size, num_components)
         self.k = nn.Linear(input_size, num_components)
-        # exp(-3) ≈ 0.05 steps/tick — window crosses 5 chars in ~100 steps instead of ~5
+        # softplus(-3)*0.05 ≈ 0.002 steps/tick — window crosses 5 chars in ~100 steps
         nn.init.constant_(self.k.bias, -3.0)
+        # wide initial attention window so gradients flow to all characters early
+        nn.init.constant_(self.beta.bias, -1.0)
 
     @jit.script_method
     def forward(self, x: Tensor, c: Tensor, prev_k: Tensor):
@@ -126,7 +128,7 @@ class SoftWindow(jit.ScriptModule):
 
         alpha = torch.exp(self.alpha(x))
         beta = torch.exp(self.beta(x))
-        k_new = prev_k + torch.exp(self.k(x))
+        k_new = prev_k + F.softplus(self.k(x)) * 0.05
 
         batch_size, num_chars, _ = c.shape
         phi = self.compute_attention_weights(alpha, beta, k_new, num_chars)
